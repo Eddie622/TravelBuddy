@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Dashboard</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hello, {{this_user.username}}</h1>
+    <a href="/logout/">Logout</a>
+
+    <h2>Your Trip Schedules</h2>
+    <table>
+        <tr>
+            <th>Destination</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Plan</th>
+        </tr>
+        {% for each_trip in user_trips %}
+        <tr>
+            <td><a href="destination/{{each_trip.id}}/">{{each_trip.plan.destination}}</a></td>
+            <td>{{each_trip.plan.dateFrom}}</td>
+            <td>{{each_trip.plan.dateTo}}</td>
+            <td>{{each_trip.plan.description}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Other User's Travel Plans</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Destination</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Do You Want to Join?</th>
+        </tr>
+        {% for each_plan in other_travelPlans %}
+            {% if each_plan.id not in user_trip_ids %}
+                <tr>
+                    <td>{{each_plan.creator.name}}</td>
+                    <td><a href="destination/{{each_plan.id}}/">{{each_plan.destination}}</a></td>
+                    <td>{{each_plan.dateFrom}}</td>
+                    <td>{{each_plan.dateTo}}</td>
+                    <td><a href="joinTrip/{{each_plan.id}}">Join</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+    <br><a href="/travels/add/">Add Travel Plan</a>
+</body>
+
+</html>

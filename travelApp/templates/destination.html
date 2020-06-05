@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination</title>
+</head>
+<body>
+    <a href="../../">Home</a>
+    <a href="../../../logout/">Logout</a>
+    <h1>{{plan.destination}}</h1>
+    {% for user in users %}
+        {% if user.id == plan.creator_id %}
+            <p>Planned By: {{user.name}}</p>
+        {% endif %}
+    {% endfor %}
+    <p>Description: {{plan.description}}</p>
+    <p>Travel Date From: {{plan.dateFrom}}</p>
+    <p>Travel Date To: {{plan.dateTo}}</p>
+
+    <h3>Other users' joining the trip</h3>
+    {% for user in users %}
+        {% if user.id != plan.creator_id %}
+            <p>{{user.name}}</p>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>
